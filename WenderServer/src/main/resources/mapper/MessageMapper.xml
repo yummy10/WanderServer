@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.MessageMapper">
+    <resultMap id="messageResultMap" type="org.example.entity.Message">
+        <result property="messageID" column="MessageID"/>
+        <result property="userName" column="UserName"/>
+        <result property="placeName" column="PlaceName"/>
+        <result property="text" column="Text"/>
+        <result property="mLike" column="MLike"/>
+    </resultMap>
+    <select id="getAllMessages" resultMap="messageResultMap">
+        SELECT m.MessageID, u.UserName, p.PlaceName, m.Text, m.MLike
+        FROM wander.user u
+                 JOIN wander.message m ON m.UserID = u.UserID
+                 JOIN wander.place p ON p.PlaceID = m.PlaceID;
+    </select>
+
+    <insert id="insertMessage" parameterType="org.example.entity.Message">
+        INSERT INTO wander.message (UserID, PlaceID, Text)
+        VALUES (
+                       (SELECT UserID FROM wander.user WHERE UserName = #{userName}),
+                       (SELECT PlaceID FROM wander.place WHERE PlaceName = #{placeName}),
+                       #{text}
+               );
+    </insert>
+
+    <update id="incrementLike" parameterType="int">
+        UPDATE wander.message
+        SET MLike = MLike + 1
+        WHERE MessageID = #{messageID};
+    </update>
+</mapper>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.mapper.PlaceMapper">
+    <select id="getAllPlaces" resultType="org.example.entity.Place">
+        SELECT * FROM place
+    </select>
+
+    <insert id="addPlace" parameterType="org.example.entity.Place">
+        INSERT INTO place (Placename, PlaceDescription, PlaceIntroduction, CityID, PlaceImageName, PlaceImagePath)
+        VALUES (#{placeName}, #{placeDescription}, #{placeIntroduction}, #{cityId}, #{placeImageName}, #{placeImagePath})
+    </insert>
+
+    <select id="searchPlacesByName" parameterType="string" resultType="org.example.entity.Place">
+        SELECT * FROM place WHERE Placename LIKE CONCAT('%', #{name}, '%')
+    </select>
+
+    <select id="searchPlacesByCity" parameterType="string" resultType="org.example.entity.Place">
+        SELECT p.*
+        FROM place p
+                 JOIN city c ON p.CityID = c.CityID
+        WHERE c.CityName LIKE CONCAT('%', #{cityName}, '%')
+    </select>
+</mapper>
