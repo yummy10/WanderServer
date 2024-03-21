@@ -25,8 +25,7 @@ public class PlaceController {
 
     @GetMapping
     public List<Place> getAllPlaces() {
-        List<Place> places = placeService.getAllPlaces();
-        return places;
+        return placeService.getAllPlaces();
     }
 
     @PostMapping
