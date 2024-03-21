@@ -16,11 +16,12 @@
     </select>
 
     <insert id="insertMessage" parameterType="org.example.entity.Message">
-        INSERT INTO wander.message (UserID, PlaceID, Text)
+        INSERT INTO wander.message (UserID, PlaceID, Text,MLike)
         VALUES (
                        (SELECT UserID FROM wander.user WHERE UserName = #{userName}),
                        (SELECT PlaceID FROM wander.place WHERE PlaceName = #{placeName}),
-                       #{text}
+                       #{text},
+                        0
                );
     </insert>
 
@@ -29,4 +30,11 @@
         SET MLike = MLike + 1
         WHERE MessageID = #{messageID};
     </update>
+
+    <update id="decrementLike" parameterType="int">
+        UPDATE wander.message
+        SET MLike = MLike - 1
+        WHERE MessageID = #{messageID};
+    </update>
+
 </mapper>

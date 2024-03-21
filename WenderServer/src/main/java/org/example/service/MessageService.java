@@ -8,4 +8,5 @@ public interface MessageService {
     List<Message> getAllMessages();
     void addMessage(Message message);
     void addLike(int messageID);
+    void subLike(int messageID);
 }

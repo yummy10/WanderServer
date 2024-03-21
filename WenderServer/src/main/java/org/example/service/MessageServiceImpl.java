@@ -26,4 +26,8 @@ public class MessageServiceImpl implements MessageService {
     public void addLike(int messageID) {
         messageMapper.incrementLike(messageID);
     }
+    @Override
+    public void subLike(int messageID) {
+        messageMapper.decrementLike(messageID);
+    }
 }

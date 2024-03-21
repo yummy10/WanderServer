@@ -10,4 +10,5 @@ public interface MessageMapper {
     List<Message> getAllMessages();
     void insertMessage(Message message);
     void incrementLike(int messageID);
+    void decrementLike(int messageID);
 }

@@ -44,10 +44,10 @@ public class PlaceController {
     @PostMapping
     public void addPlace(@RequestBody PlaceRequest placeRequest) {
         Place place=placeRequest.getPlace();
-        String placeName=placeRequest.getPlaceName();
+        String cityName=placeRequest.getPlaceName();
         String imageName = place.getPlaceName().replace(" ", "_");
         place.setPlaceImageName(imageName);
-        place.setPlaceImagePath("places/images/"+placeName+"/"+place.getPlaceImageName()+".jpg");
+        place.setPlaceImagePath("places/images/"+cityName+"/"+place.getPlaceImageName()+".jpg");
         placeService.addPlace(place);
     }
 

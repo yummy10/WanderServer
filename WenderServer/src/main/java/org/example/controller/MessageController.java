@@ -30,4 +30,9 @@ public class MessageController {
     public void addLike(@PathVariable int messageID) {
         messageService.addLike(messageID);
     }
+
+    @PutMapping("/{messageID}/sublike")
+    public void subLike(@PathVariable int messageID) {
+        messageService.subLike(messageID);
+    }
 }
