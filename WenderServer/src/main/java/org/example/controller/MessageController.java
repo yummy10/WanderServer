@@ -1,6 +1,5 @@
 package org.example.controller;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.example.entity.Message;
 import org.example.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
