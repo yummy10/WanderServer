@@ -31,7 +31,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Integer countPlacesByName(String placeName){
         return  messageMapper.countPlacesByName(placeName);
-    };
+    }
     @Override
     public List<Message> ShowingUserComments(Integer userID) {
         return messageMapper.ShowingUserComments(userID);
