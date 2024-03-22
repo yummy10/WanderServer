@@ -34,4 +34,13 @@ public class MessageController {
     public void subLike(@PathVariable int messageID) {
         messageService.subLike(messageID);
     }
+
+    @GetMapping("/{placeName}")
+    public Integer isPlaceNameValid(@PathVariable String placeName) {
+        return messageService.countPlacesByName(placeName);
+    }
+    @GetMapping("/user/{userID}")
+    public List<Message> ShowingUserComments(@PathVariable Integer userID) {
+        return messageService.ShowingUserComments(userID);
+    }
 }

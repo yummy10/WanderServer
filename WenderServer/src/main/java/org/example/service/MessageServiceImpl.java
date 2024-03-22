@@ -16,12 +16,10 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> getAllMessages() {
         return messageMapper.getAllMessages();
     }
-
     @Override
     public void addMessage(Message message) {
         messageMapper.insertMessage(message);
     }
-
     @Override
     public void addLike(int messageID) {
         messageMapper.incrementLike(messageID);
@@ -29,5 +27,13 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public void subLike(int messageID) {
         messageMapper.decrementLike(messageID);
+    }
+    @Override
+    public Integer countPlacesByName(String placeName){
+        return  messageMapper.countPlacesByName(placeName);
+    };
+    @Override
+    public List<Message> ShowingUserComments(Integer userID) {
+        return messageMapper.ShowingUserComments(userID);
     }
 }
