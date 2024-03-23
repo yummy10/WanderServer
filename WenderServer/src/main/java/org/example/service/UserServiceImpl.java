@@ -13,4 +13,12 @@ public class UserServiceImpl implements UserService{
     public User login(User user){
         return userMapper.login(user);
     }
+    @Override
+    public Void create(User user){
+        return userMapper.create(user);
+    }
+    @Override
+    public Integer countUserName(User user){
+        return userMapper.countUserName(user);
+    }
 }

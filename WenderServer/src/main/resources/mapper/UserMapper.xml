@@ -8,4 +8,11 @@
         SELECT * FROM wander.user WHERE UserName = #{userName} AND UserPassword = #{userPassword}
     </select>
 
+    <select id="create" parameterType="org.example.entity.User">
+        INSERT INTO wander.user (UserName, UserPassword, VIP) VALUES (#{userName}, #{userPassword}, #{VIP})
+    </select>
+
+    <select id="countUserName" resultType="int">
+        SELECT COUNT(*) FROM wander.user WHERE UserName = #{userName}
+    </select>
 </mapper>
