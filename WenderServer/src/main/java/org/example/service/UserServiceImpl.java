@@ -14,7 +14,11 @@ public class UserServiceImpl implements UserService{
     public User login(User user){
         user.setUserName(CryptoUtils.decrypt(user.getUserName()));
         user.setUserPassword(CryptoUtils.decrypt(user.getUserPassword()));
-        return userMapper.login(user);
+        user = userMapper.login(user);
+        if(user==null){return null;}
+        user.setUserName(CryptoUtils.encrypt(user.getUserName()));
+        user.setUserPassword(CryptoUtils.encrypt(user.getUserPassword()));
+        return user;
     }
     @Override
     public Void create(User user){

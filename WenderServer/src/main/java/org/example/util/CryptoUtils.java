@@ -26,4 +26,14 @@ public class CryptoUtils {
             throw new RuntimeException("Failed to decrypt input", e);
         }
     }
+
+    public static String encrypt(String input) {
+        try {
+            cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(ENCRYPTION_KEY.getBytes(), "AES"));
+            byte[] encryptedBytes = cipher.doFinal(input.getBytes(StandardCharsets.UTF_8));
+            return Base64.getEncoder().encodeToString(encryptedBytes);
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to encrypt input", e);
+        }
+    }
 }
