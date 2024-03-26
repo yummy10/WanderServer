@@ -10,5 +10,5 @@ public interface MessageService {
     void addLike(int messageID);
     void subLike(int messageID);
     Integer countPlacesByName(String placeName);
-    List<Message> ShowingUserComments(Integer userID);
+    List<Message> ShowingUserComments(String userName);
 }

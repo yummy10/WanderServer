@@ -47,7 +47,7 @@
         FROM wander.user u
                  JOIN wander.message m ON m.UserID = u.UserID
                  JOIN wander.place p ON p.PlaceID = m.PlaceID
-        WHERE m.UserID = #{userID};
+        WHERE UserName = #{UserName};
     </select>
 
 </mapper>

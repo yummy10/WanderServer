@@ -39,8 +39,8 @@ public class MessageController {
     public Integer isPlaceNameValid(@PathVariable String placeName) {
         return messageService.countPlacesByName(placeName);
     }
-    @GetMapping("/user/{userID}")
-    public List<Message> ShowingUserComments(@PathVariable Integer userID) {
-        return messageService.ShowingUserComments(userID);
+    @GetMapping("/user/{userName}")
+    public List<Message> ShowingUserComments(@PathVariable String userName) {
+        return messageService.ShowingUserComments(userName);
     }
 }

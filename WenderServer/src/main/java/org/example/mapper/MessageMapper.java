@@ -12,5 +12,5 @@ public interface MessageMapper {
     void incrementLike(int messageID);
     void decrementLike(int messageID);
     Integer countPlacesByName(String placeName);
-    List<Message> ShowingUserComments(Integer userID);
+    List<Message> ShowingUserComments(String userName);
 }

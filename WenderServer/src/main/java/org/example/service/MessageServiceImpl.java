@@ -33,7 +33,7 @@ public class MessageServiceImpl implements MessageService {
         return  messageMapper.countPlacesByName(placeName);
     }
     @Override
-    public List<Message> ShowingUserComments(Integer userID) {
-        return messageMapper.ShowingUserComments(userID);
+    public List<Message> ShowingUserComments(String userName) {
+        return messageMapper.ShowingUserComments(userName);
     }
 }
