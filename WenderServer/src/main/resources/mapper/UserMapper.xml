@@ -9,10 +9,15 @@
     </select>
 
     <select id="create" parameterType="org.example.entity.User">
-        INSERT INTO wander.user (UserName, UserPassword, VIP) VALUES (#{userName}, #{userPassword}, #{VIP})
+        INSERT INTO wander.user (UserName, UserPassword, VIP) VALUES (#{userName}, #{userPassword},0)
     </select>
 
     <select id="countUserName" resultType="int">
         SELECT COUNT(*) FROM wander.user WHERE UserName = #{userName}
     </select>
+    <update id="change">
+        UPDATE wander.user
+        SET UserPassword = #{pw}
+        WHERE UserName = #{userName} AND UserPassword = #{userPassword}
+    </update>
 </mapper>

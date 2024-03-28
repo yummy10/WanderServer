@@ -6,4 +6,5 @@ public interface UserService {
     User login(User user);
     Void create(User user);
     Integer countUserName(User user);
+    User change(User user, String pw);
 }

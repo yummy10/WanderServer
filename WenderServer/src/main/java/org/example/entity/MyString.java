@@ -15,3 +15,4 @@ public class MyString {
 
     private String message;
 }
+

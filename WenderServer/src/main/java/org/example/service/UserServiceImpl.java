@@ -31,4 +31,20 @@ public class UserServiceImpl implements UserService{
         user.setUserPassword(CryptoUtils.decrypt(user.getUserPassword()));
         return userMapper.countUserName(user);
     }
+
+    @Override
+    public User change(User user, String pw) {
+        user.setUserName(CryptoUtils.decrypt(user.getUserName()));
+        user.setUserPassword(CryptoUtils.decrypt(user.getUserPassword()));
+        pw = CryptoUtils.decrypt(pw);
+        int rowsUpdated = userMapper.change(user.getUserName(),user.getUserPassword(),pw);
+        if (rowsUpdated == 0) {
+            return null;
+        }
+        user.setVIP(false);
+        user.setUserID(0);
+        user.setUserName(CryptoUtils.encrypt(user.getUserPassword()));
+        user.setUserPassword(CryptoUtils.encrypt(pw));
+        return user;
+    }
 }

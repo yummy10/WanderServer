@@ -4,10 +4,7 @@ import org.example.entity.MyString;
 import org.example.entity.User;
 import org.example.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/users")
@@ -28,4 +25,33 @@ public class UserController {
             return new MyString("错误: 用户名已存在。");
         }
     }
+
+    @PostMapping("/change")
+    public User change(@RequestBody ChangePasswordRequest user) {
+        return userService.change(user.getUser(),user.getNewPassword());
+    }
+    private static class ChangePasswordRequest {
+        private User user;
+        private String newPassword;
+
+        // 添加一个无参构造函数
+        public ChangePasswordRequest() {}
+
+        public User getUser() {
+            return user;
+        }
+
+        public void setUser(User user) {
+            this.user = user;
+        }
+
+        public String getNewPassword() {
+            return newPassword;
+        }
+
+        public void setNewPassword(String newPassword) {
+            this.newPassword = newPassword;
+        }
+    }
+
 }
