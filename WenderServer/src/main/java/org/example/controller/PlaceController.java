@@ -1,5 +1,6 @@
 package org.example.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.entity.Place;
 import org.example.entity.PlaceRequest;
 import org.example.service.PlaceService;
@@ -10,11 +11,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.io.FileNotFoundException;
 import java.util.Collections;
+import java.util.Enumeration;
 import java.util.List;
 
 @RestController
@@ -28,15 +35,29 @@ public class PlaceController {
         return placeService.getAllPlaces();
     }
 
-    @PostMapping
-    public void addPlace(@RequestBody PlaceRequest placeRequest) {
-        Place place=placeRequest.getPlace();
-        String cityName=placeRequest.getPlaceName();
-        String imageName = place.getPlaceName().replace(" ", "_");
-        place.setPlaceImageName(imageName);
-        place.setPlaceImagePath("places/images/"+cityName+"/"+place.getPlaceImageName()+".jpg");
+    @PostMapping("/addWithImage")
+    public void addPlaceWithImage(@RequestPart("place") String placeJson,
+                                  @RequestPart("currentCityName") String currentCityName,
+                                  @RequestPart("image") MultipartFile file) throws IOException {
+        // 將JSON字符串轉換為Place對象
+        Place place = new ObjectMapper().readValue(placeJson, Place.class);
+        currentCityName = currentCityName.substring(1, currentCityName.length() - 1).toLowerCase();
+        // 處理圖片上傳
+        if (!file.isEmpty()) {
+            String imageName = place.getPlaceName().replace(" ", "_");
+            String imagePath = "images/place/" + currentCityName+"/"+ imageName + ".jpg";
+            File imageFile = new File("C:/Wander/WenderServer/WenderServer/src/main/resources/" + imagePath);
+            file.transferTo(imageFile.toPath());
+            place.setPlaceImageName(imageName);
+            place.setPlaceImagePath(imagePath);
+        } else {
+            throw new IllegalStateException("Cannot upload empty file");
+        }
+
+        // 將地點添加到數據庫
         placeService.addPlace(place);
     }
+
 
     @GetMapping("/search")
     public List<Place> searchPlaces(@RequestParam(required = false) String name,
@@ -51,7 +72,6 @@ public class PlaceController {
         }
         return places;
     }
-
     @GetMapping(value = "/images/{imagePath1}/{imagePath2}", produces = MediaType.IMAGE_JPEG_VALUE)
     @ResponseBody
     public byte[] getImage(@PathVariable("imagePath1") String imagePath1, @PathVariable("imagePath2") String imagePath2) throws IOException {
@@ -62,5 +82,12 @@ public class PlaceController {
             throw new FileNotFoundException("Image not found: " + imagePath1+"/"+imagePath2);
         }
     }
-
+    @PostMapping(value = "/add")
+    public void addPlace(@RequestBody PlaceRequest placeRequest) {
+        Place place=placeRequest.getPlace();
+        String imageName = place.getPlaceName().replace(" ", "_");
+        place.setPlaceImageName(imageName);
+        place.setPlaceImagePath("");
+        placeService.addPlace(place);
+    }
 }

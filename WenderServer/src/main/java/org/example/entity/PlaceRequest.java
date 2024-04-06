@@ -1,6 +1,9 @@
 package org.example.entity;
 
+import org.springframework.web.multipart.MultipartFile;
+
 public class PlaceRequest {
+
     public Place getPlace() {
         return place;
     }
@@ -9,14 +12,23 @@ public class PlaceRequest {
         this.place = place;
     }
 
-    public String getPlaceName() {
-        return placeName;
+    public String getCurrentCityName() {
+        return currentCityName;
     }
 
-    public void setPlaceName(String placeName) {
-        this.placeName = placeName;
+    public void setCurrentCityName(String currentCityName) {
+        this.currentCityName = currentCityName;
+    }
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
     }
 
     private Place place;
-    private String placeName;
+    private String currentCityName;
+    private MultipartFile file;
 }
