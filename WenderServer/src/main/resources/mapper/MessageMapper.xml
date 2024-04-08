@@ -7,21 +7,23 @@
         <result property="placeName" column="PlaceName"/>
         <result property="text" column="Text"/>
         <result property="mLike" column="MLike"/>
+        <result property="star" column="Star"/>
     </resultMap>
     <select id="getAllMessages" resultMap="messageResultMap">
-        SELECT m.MessageID, u.UserName, p.PlaceName, m.Text, m.MLike
+        SELECT m.MessageID, u.UserName, p.PlaceName, m.Text, m.MLike ,m.Star
         FROM wander.user u
                  JOIN wander.message m ON m.UserID = u.UserID
                  JOIN wander.place p ON p.PlaceID = m.PlaceID;
     </select>
 
     <insert id="insertMessage" parameterType="org.example.entity.Message">
-        INSERT INTO wander.message (UserID, PlaceID, Text,MLike)
+        INSERT INTO wander.message (UserID, PlaceID, Text,MLike,Star)
         VALUES (
                        (SELECT UserID FROM wander.user WHERE UserName = #{userName}),
                        (SELECT PlaceID FROM wander.place WHERE PlaceName = #{placeName}),
                        #{text},
-                        0
+                        0,
+                       #{star}
                );
     </insert>
 
@@ -43,7 +45,7 @@
     </select>
 
     <select id="ShowingUserComments" resultMap="messageResultMap">
-        SELECT m.MessageID,UserName,p.PlaceName, m.Text, m.MLike
+        SELECT m.MessageID,UserName,p.PlaceName, m.Text, m.MLike, m.Star
         FROM wander.user u
                  JOIN wander.message m ON m.UserID = u.UserID
                  JOIN wander.place p ON p.PlaceID = m.PlaceID

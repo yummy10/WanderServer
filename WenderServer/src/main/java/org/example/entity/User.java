@@ -37,4 +37,14 @@ public class User {
     private String userName;
     private String userPassword;
     private Boolean VIP;
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    private String icon;
 }

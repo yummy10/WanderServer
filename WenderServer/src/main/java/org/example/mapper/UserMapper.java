@@ -8,4 +8,5 @@ public interface UserMapper {
     Void create(User user);
     Integer countUserName(User user);
     int change(@Param("userName") String userName, @Param("userPassword") String userPassword, @Param("pw") String pw);
+    int addIcon(@Param("userName") String userName, @Param("icon") String icon);
 }

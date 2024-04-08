@@ -22,7 +22,6 @@ public class UserServiceImpl implements UserService{
     }
     @Override
     public Void create(User user){
-
         return userMapper.create(user);
     }
     @Override
@@ -46,5 +45,10 @@ public class UserServiceImpl implements UserService{
         user.setUserName(CryptoUtils.encrypt(user.getUserPassword()));
         user.setUserPassword(CryptoUtils.encrypt(pw));
         return user;
+    }
+    @Override
+    public Void addIcon(String userName,String icon){
+        userMapper.addIcon(userName,icon);
+        return null;
     }
 }

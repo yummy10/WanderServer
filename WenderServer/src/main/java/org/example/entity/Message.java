@@ -48,4 +48,14 @@ public class Message {
     private String placeName;
     private String text;
     private Integer mLike;
+
+    public Integer getStar() {
+        return star;
+    }
+
+    public void setStar(Integer star) {
+        this.star = star;
+    }
+
+    private Integer star;
 }

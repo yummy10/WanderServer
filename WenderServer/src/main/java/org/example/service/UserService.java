@@ -7,4 +7,5 @@ public interface UserService {
     Void create(User user);
     Integer countUserName(User user);
     User change(User user, String pw);
+    Void addIcon(String userName,String icon);
 }

@@ -45,10 +45,11 @@ public class PlaceController {
         // 處理圖片上傳
         if (!file.isEmpty()) {
             String imageName = place.getPlaceName().replace(" ", "_");
-            String imagePath = "images/place/" + currentCityName+"/"+ imageName + ".jpg";
-            File imageFile = new File("C:/Wander/WenderServer/WenderServer/src/main/resources/" + imagePath);
+            String imagePath = "places/images/" + currentCityName+"/"+ imageName + ".jpg";
+            String realImagePath = "images/place/" + currentCityName+"/"+ imageName + ".jpg";
+            File imageFile = new File("C:/Wander/WenderServer/WenderServer/src/main/resources/" + realImagePath);
             file.transferTo(imageFile.toPath());
-            place.setPlaceImageName(imageName);
+            place.setPlaceImageName(imageName+".jpg");
             place.setPlaceImagePath(imagePath);
         } else {
             throw new IllegalStateException("Cannot upload empty file");
