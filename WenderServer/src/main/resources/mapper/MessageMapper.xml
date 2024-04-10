@@ -52,4 +52,11 @@
         WHERE UserName = #{UserName};
     </select>
 
+    <select id="ShowingPlaceComments" resultMap="messageResultMap">
+        SELECT m.MessageID,UserName,p.PlaceName, m.Text, m.MLike, m.Star
+        FROM wander.user u
+                 JOIN wander.message m ON m.UserID = u.UserID
+                 JOIN wander.place p ON p.PlaceID = m.PlaceID
+        WHERE p.PlaceName = #{placeName};
+    </select>
 </mapper>

@@ -36,4 +36,8 @@ public class MessageServiceImpl implements MessageService {
     public List<Message> ShowingUserComments(String userName) {
         return messageMapper.ShowingUserComments(userName);
     }
+    @Override
+    public List<Message> ShowingPlaceComments(String placeName) {
+        return messageMapper.ShowingPlaceComments(placeName);
+    }
 }

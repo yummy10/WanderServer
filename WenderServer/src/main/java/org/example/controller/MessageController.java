@@ -43,4 +43,8 @@ public class MessageController {
     public List<Message> ShowingUserComments(@PathVariable String userName) {
         return messageService.ShowingUserComments(userName);
     }
+    @GetMapping("/place/{placeName}")
+    public List<Message> ShowingPlaceComments(@PathVariable String placeName) {
+        return messageService.ShowingPlaceComments(placeName);
+    }
 }
